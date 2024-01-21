@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	 xmlns:a="http://xmls.jcp.org/jsf/passthrough"
+	 >
+	
+<h:form id="listeForm">
+    <f:metadata>
+        <f:event listener="#{etudiantBean.chargerListeEtudiant}" type="preRenderView"></f:event>
+    </f:metadata>
+    
+
+    <h:head>
+        <title>Liste</title>
+    </h:head>
+
+    <h:body>
+    	<h:form>
+    <p:panelGrid columns="3">
+    	<p:outputLabel value="Nom: "/>
+    	<p:inputText value="#{etudiantBean.etudiant.nom}" a:placeholder="Votre Nom: "></p:inputText>
+    	<br/>
+    	<p:outputLabel value="Prenom: "/>
+    	<p:inputText value="#{etudiantBean.etudiant.prenom}" a:placeholder="Votre prenom: "></p:inputText>
+    	<br/>
+    	<p:outputLabel value="DateNaiss: "/>
+    	<p:inputText value="#{etudiantBean.etudiant.datenaiss}" a:placeholder="Votre dateNaiss: "></p:inputText>
+    	<br/>
+    	<h:commandButton value="Enregistrer" action="#{etudiantBean.addEtudiant(etudiantBean.etudiant)}"></h:commandButton>
+    </p:panelGrid>
+</h:form>
+        <h1>Liste des etudiants</h1>
+        <p:dataTable id="listeTable" value="#{etudiantBean.listeEtudiant}" var="e">
+            <p:column>
+                <f:facet name="header">ID</f:facet>
+                #{e.id}
+            </p:column>
+            <p:column>
+                <f:facet name="header">Nom</f:facet>
+                #{e.nom}
+            </p:column>
+            <p:column>
+                <f:facet name="header">Prénom</f:facet>
+                #{e.prenom}
+            </p:column>
+            <p:column>
+                <f:facet name="header">Date Naissance</f:facet>
+                #{e.datenaiss}
+            </p:column>
+             <p:column>
+                <f:facet name="header">Modifier</f:facet>
+     			<p:commandLink value="Modifier" action="#{etudiantBean.updateEtudiant(e.id)}"/>
+            </p:column>
+             <p:column>
+    <f:facet name="header">Supprimer</f:facet>
+    <p:commandLink value="Supprimer" 
+                   onclick="return confirm('Voulez-vous supprimer l\'étudiant?')"
+                   action="#{etudiantBean.deleteEtudiant(e.id)}"/>
+</p:column>
+
+        </p:dataTable>
+    </h:body>
+</h:form>
+<br/>
+<p:panelGrid columns="3">
+    <p:outputLabel value="Nom: " />
+    <p:inputText value="#{etudiantBean.etudiant.nom}" />
+    <br />
+    <p:outputLabel value="Prenom: " />
+    <p:inputText value="#{etudiantBean.etudiant.prenom}" />
+    <br />
+    <p:outputLabel value="DateNaiss: " />
+    <p:inputText value="#{etudiantBean.etudiant.datenaiss}" />
+    <br />
+    <h:commandButton value="Modifier" action="#{etudiantBean.updateEtudiant}" />
+</p:panelGrid>
+
+
+</html>
